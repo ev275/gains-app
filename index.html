@@ -26,9 +26,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#today">Today's Workout</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Projects</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#signup">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#new">New Workout</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#workouts">Workouts</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info">Info</a></li>
                     </ul>
                 </div>
             </div>
@@ -43,16 +43,17 @@
                 </div>
             </div>
         </header>
-        <!-- Today-->
-        <section class="today-section text-center" id="today">
-            <div class="container">
+        <!-- New -->
+        <section class="new-section text-center" id="new">
+            <button class="btn btn-primary js-scroll-trigger" id="hideNewBtn">New Workout</button>
+            <div class="container" id="newContainer">
                 <div class="row">
                     <div class="col-lg-8 mx-auto">
-                        <h2 class="text-white mb-4">Conquer Today's Workout</h2>
+                        <h2 class="text-white mb-4">New Workout</h2>
                         <!-- <p class="text-white-50">
                             this will be a table with lifts, sets, and weight
                         </p> -->
-                        <table class="table table-dark table-bordered">
+                        <!-- <table class="table table-dark table-bordered">
                             <thead>
                               <tr>
                                 <th scope="col">#</th>
@@ -83,32 +84,33 @@
                                 <td>@twitter</td>
                               </tr>
                             </tbody>
-                          </table>
+                          </table> -->
+                          <p>***form with submit btn. on submit, toggle newBtn</p>
                     </div>
                 </div>
                 <!-- <img class="img-fluid" src="assets/img/ipad.png" alt="" /> -->
             </div>
         </section>
-        <!-- Projects-->
-        <section class="projects-section bg-light" id="projects">
+        <!-- Workouts-->
+        <section class="workouts-section bg-light" id="workouts">
             <div class="container">
-                <!-- Featured Project Row-->
-                <div class="row align-items-center no-gutters mb-4 mb-lg-5">
+                <!-- Today's Workout Row-->
+                <div class="row align-items-center no-gutters mb-4 mb-lg-5" id="today">
                     <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/bg-masthead.jpg" alt="" /></div>
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
-                            <h4>Shoreline</h4>
+                            <h4>Conquer Today's Workout</h4>
                             <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it for any project - even commercial projects! Download it, customize it, and publish your website!</p>
                         </div>
                     </div>
                 </div>
-                <!-- Project One Row-->
+                <!-- 2nd Workout Row-->
                 <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
                     <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-01.jpg" alt="" /></div>
                     <div class="col-lg-6">
-                        <div class="bg-black text-center h-100 project">
+                        <div class="bg-black text-center h-100 workout">
                             <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-left">
+                                <div class="workout-text w-100 my-auto text-center text-lg-left">
                                     <h4 class="text-white">Misty</h4>
                                     <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
                                     <hr class="d-none d-lg-block mb-0 ml-0" />
@@ -117,13 +119,13 @@
                         </div>
                     </div>
                 </div>
-                <!-- Project Two Row-->
+                <!-- 3rd Workout Row-->
                 <div class="row justify-content-center no-gutters">
                     <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-02.jpg" alt="" /></div>
                     <div class="col-lg-6 order-lg-first">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-right">
+                                <div class="workout-text w-100 my-auto text-center text-lg-right">
                                     <h4 class="text-white">Mountains</h4>
                                     <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!</p>
                                     <hr class="d-none d-lg-block mb-0 mr-0" />
@@ -204,5 +206,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
+        <script src="js/index.js"></script>
     </body>
 </html>

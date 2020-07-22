@@ -10273,39 +10273,40 @@ body {
   }
 }
 
-.today-section {
+.new-section {
   padding-top: 10rem;
   background-color: black;
   /* background: linear-gradient(to bottom, #000000 0%, rgba(0, 0, 0, 0.9) 75%, rgba(0, 0, 0, 0.8) 100%); */
 }
-.today-section p {
+.new-section p {
   margin-bottom: 5rem;
 }
 
-.projects-section {
+.workouts-section {
   /* padding: 10rem 0; */
   padding-top: 10rem;
+  color: white;
   background: linear-gradient(to bottom, #000000 0%, rgba(0, 0, 0, 0.9) 75%, rgba(0, 0, 0, 0.8) 100%);
   /* background: linear-gradient(to top, #000000 0%, rgba(0, 0, 0, 0.9) 75%, rgba(0, 0, 0, 0.8) 100%); */
 }
-.projects-section .featured-text {
+.workouts-section .featured-text {
   padding: 2rem;
 }
 @media (min-width: 992px) {
-  .projects-section .featured-text {
+  .workouts-section .featured-text {
     padding: 0 0 0 2rem;
     border-left: 0.5rem solid #64a19d;
   }
 }
-.projects-section .project-text {
+.workouts-section .workout-text {
   padding: 3rem;
   font-size: 90%;
 }
 @media (min-width: 992px) {
-  .projects-section .project-text {
+  .workouts-section .workout-text {
     padding: 5rem;
   }
-  .projects-section .project-text hr {
+  .workouts-section .workout-text hr {
     border-color: #64a19d;
     border-width: 0.25rem;
     width: 30%;

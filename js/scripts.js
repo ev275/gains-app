@@ -55,6 +55,3 @@
     $(window).scroll(navbarCollapse);
 })(jQuery); // End of use strict
 
-fetch("http://localhost:3000/api/users/8")
-.then( res => res.json())
-.then(console.log)
