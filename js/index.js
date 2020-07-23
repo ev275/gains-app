@@ -46,20 +46,35 @@ function createWorkout(form) {
       },
       body: JSON.stringify({
         name: workoutName,
-        user_id: 8
+        user_id: 1
       })
     })
     .then(res => res.json())
-    .then(newExercise => newExercise)
+    .then(newExercise => {
+      if (lift1 && sets1 && reps1 && weights1) {
+        fetch("http://localhost:3000/api/lifts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          },
+          body: JSON.stringify({
+            name: workoutName,
+            exercise_id: newExercise.id,
+            sets: sets1,
+            reps: reps1,
+            weights: weights1
+          })
+        })
+      }
+    
+      // if (lift2 && sets2 && reps2 && weights2) {
+        
+      // }
+    })
   }
-  if (lift1 && sets1 && reps1 && weights1) {
-    console.log("1st lift exists")
-  }
-
-  if (lift2 && sets2 && reps2 && weights2) {
-    console.log("2nd lift exists")
-  }
-  debugger
+  
+  // debugger
 }
 
 toggleElement(newContainer)
