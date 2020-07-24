@@ -27,6 +27,7 @@ function fetchUser(id) {
   .then(console.log)
 }
 
+
 function createWorkout(form) {
   let workoutName = form[0].value
 
@@ -38,7 +39,7 @@ function createWorkout(form) {
 
   let [lift4, sets4, reps4, weights4] = [form[13].value, form[14].value, form[15].value, form[16].value]
   if (workoutName) {
-    return fetch("http://localhost:3000/api/exercises", {
+    fetch("http://localhost:3000/api/exercises", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +60,7 @@ function createWorkout(form) {
             Accept: "application/json"
           },
           body: JSON.stringify({
-            name: workoutName,
+            name: lift1,
             exercise_id: newExercise.id,
             sets: sets1,
             reps: reps1,
@@ -67,10 +68,57 @@ function createWorkout(form) {
           })
         })
       }
-    
-      // if (lift2 && sets2 && reps2 && weights2) {
-        
-      // }
+      if (lift2 && sets2 && reps2 && weights2) {
+        fetch("http://localhost:3000/api/lifts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          },
+          body: JSON.stringify({
+            name: lift2,
+            exercise_id: newExercise.id,
+            sets: sets2,
+            reps: reps2,
+            weights: weights2
+          })
+        })
+      }
+      if (lift3 && sets3 && reps3 && weights3) {
+        fetch("http://localhost:3000/api/lifts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          },
+          body: JSON.stringify({
+            name: lift3,
+            exercise_id: newExercise.id,
+            sets: sets3,
+            reps: reps3,
+            weights: weights3
+          })
+        })
+      }
+      if (lift4 && sets4 && reps4 && weights4) {
+        fetch("http://localhost:3000/api/lifts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          },
+          body: JSON.stringify({
+            name: lift4,
+            exercise_id: newExercise.id,
+            sets: sets4,
+            reps: reps4,
+            weights: weights4
+          })
+        })
+      }
+      fetch(`http://localhost:3000/api/exercises/${newExercise.id}`)
+      .then(res => res.json())
+      .then(json => console.log(json))
     })
   }
   
