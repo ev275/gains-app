@@ -2,6 +2,8 @@ const newBtn = document.querySelector("#newBtn")
 const newContainer = document.querySelector("#newContainer")
 const newWorkoutForm = document.querySelector("#newWorkoutForm")
 
+const workoutsContainer = document.querySelector("div.container")
+
 function toggleElement(element) {
   let x = element;
   if (x.style.display === "none") {
@@ -25,6 +27,28 @@ function fetchUser(id) {
   return fetch(`http://localhost:3000/api/users/${id}`)
   .then( res => res.json())
   .then(console.log)
+}
+
+function renderExercise(lifts_array) {
+  lifts_array.forEach(lift => {
+    renderLift(lift)
+  });
+}
+
+function renderLift(lift) {
+  // <td>Barbell Squat</td>
+  // <td>5</td>
+  // <td>8, 6, 6, 4, 2</td>
+  // <th>225, 275, 285, 305, 315</th>
+
+  let nameTag = document.createElement("td")
+  nameTag.innerText = lift.name
+
+  let setsTag = document.createElement("td")
+  setsTag.innerText = lift.setts.size
+
+  let repsTag = document.createElement("td")
+  repsTag
 }
 
 
@@ -118,7 +142,9 @@ function createWorkout(form) {
       }
       fetch(`http://localhost:3000/api/exercises/${newExercise.id}`)
       .then(res => res.json())
-      .then(json => console.log(json))
+      .then(lifts_array => {
+        renderExercise(lifts_array)
+      })
     })
   }
   
