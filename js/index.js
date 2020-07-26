@@ -2,7 +2,7 @@ const newBtn = document.querySelector("#newBtn")
 const newContainer = document.querySelector("#newContainer")
 const newWorkoutForm = document.querySelector("#newWorkoutForm")
 
-const workoutsContainer = document.querySelector("div.container")
+const workoutsContainer = document.querySelector("#workoutsDiv")
 
 function toggleElement(element) {
   let x = element;
@@ -30,16 +30,85 @@ function fetchUser(id) {
 }
 
 function renderExercise(lifts_array) {
+  let div1 = document.createElement("div")
+  div1.className = "row justify-content-center no-gutters mb-5 mb-lg-0"
+
+  let div2 = document.createElement("div")
+  div2.className = "col-xl-4 col-lg-5"
+
+  let div3 = document.createElement("div")
+  div3.className = "featured-text text-center text-lg-left"
+
+  let h4 = document.createElement("h4")
+  h4.innerText = "Workout" //change to exercise name and date
+  
+  div3.append(h4)
+  div2.append(div3)
+
+  let tableDiv = document.createElement("div")
+  tableDiv.className = "col-lg-6"
+
+  let table = document.createElement("table")
+  table.className = "table table-dark table-bordered"
+
+  let thead = document.createElement("thead")
+
+  let tr = document.createElement("tr")
+
+  let liftHead = document.createElement("th")
+  liftHead.scope = "col"
+  liftHead.innerText = "Lift"
+
+  let setsHead = document.createElement("th")
+  setsHead.scope = "col"
+  setsHead.innerText = "Sets"
+
+  let repsHead = document.createElement("th")
+  repsHead.scope = "col"
+  repsHead.innerText = "Reps"
+
+  let weightsHead = document.createElement("th")
+  weightsHead.scope = "col"
+  weightsHead.innerText = "Weights"
+
+  tr.append(liftHead, setsHead, repsHead, weightsHead)
+  thead.append(tr)
+
+  let bodyTag = document.createElement("tbody")
+  // debugger
   lifts_array.forEach(lift => {
-    renderLift(lift)
-  });
+    // renderLift(lift, bodyTag)
+    // debugger
+    let rowTag = document.createElement("tr")
+
+    let nameTag = document.createElement("td")
+    nameTag.innerText = lift.name
+
+    let setsTag = document.createElement("td")
+    setsTag.innerText = lift.setts.size
+
+    let repsTag = document.createElement("td")
+    let reps_array = []
+    lift.setts.forEach( set => reps_array.push(set.reps))
+    repsTag.innerText = reps_array
+
+    let weightsTag = document.createElement("td")
+    let weights_array = []
+    lift.setts.forEach(set => weights_array.push(set.weight))
+    weightsTag.innerText = weights_array
+
+    rowTag.append(nameTag, setsTag, repsTag, weightsTag)
+    bodyTag.append(rowTag)
+  })
+
+  table.append(thead, bodyTag)
+  tableDiv.append(table)
+  div1.append(div2, tableDiv)
+  workoutsContainer.append(div1)
 }
 
-function renderLift(lift) {
-  // <td>Barbell Squat</td>
-  // <td>5</td>
-  // <td>8, 6, 6, 4, 2</td>
-  // <th>225, 275, 285, 305, 315</th>
+function renderLift(lift, bodyTag) {
+  let rowTag = document.createElement("tr")
 
   let nameTag = document.createElement("td")
   nameTag.innerText = lift.name
@@ -48,7 +117,17 @@ function renderLift(lift) {
   setsTag.innerText = lift.setts.size
 
   let repsTag = document.createElement("td")
-  repsTag
+  let reps_array = []
+  lift.setts.forEach( set => reps_array.push(set.reps))
+  repsTag.innerText = reps_array
+
+  let weightsTag = document.createElement("td")
+  let weights_array = []
+  lift.setts.forEach(set => weights_array.push(set.weight))
+  weightsTag.innerText = weights_array
+
+  rowTag.append(nameTag, setsTag, repsTag, weightsTag)
+  bodyTag.append(rowTag)
 }
 
 
@@ -76,6 +155,7 @@ function createWorkout(form) {
     })
     .then(res => res.json())
     .then(newExercise => {
+      // debugger
       if (lift1 && sets1 && reps1 && weights1) {
         fetch("http://localhost:3000/api/lifts", {
           method: "POST",
@@ -140,10 +220,16 @@ function createWorkout(form) {
           })
         })
       }
+      // debugger
+      return newExercise
+    })
+    .then( newExercise => {
+      // debugger
       fetch(`http://localhost:3000/api/exercises/${newExercise.id}`)
       .then(res => res.json())
-      .then(lifts_array => {
-        renderExercise(lifts_array)
+      .then(json => {
+        // debugger
+        renderExercise(json)
       })
     })
   }
@@ -167,18 +253,6 @@ newWorkoutForm.addEventListener("submit", () => {
   eventFire(newBtn, "click")
 })
 
-
-
-// function hideSection(tag) {
-//     tag.class = tag.class + "hidden"
-// }
-
-// hideSection
-
-
-
-// toggleElement("#today")
-// toggleElement("#today")
 
 
 
