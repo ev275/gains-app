@@ -29,7 +29,14 @@ function fetchUser(id) {
   .then(console.log)
 }
 
-function renderExercise(lifts_array) {
+//renders all exercises
+fetch("http://localhost:3000/api/exercises")
+.then(res => res.json())
+.then(exercises => {
+  exercises.forEach(exercise => renderExercise(exercise))
+})
+
+function renderExercise(createdExercise) {
   let div1 = document.createElement("div")
   div1.className = "row justify-content-center no-gutters mb-5 mb-lg-0"
 
@@ -40,7 +47,7 @@ function renderExercise(lifts_array) {
   div3.className = "featured-text text-center text-lg-left"
 
   let h4 = document.createElement("h4")
-  h4.innerText = "Workout" //change to exercise name and date
+  h4.innerText = createdExercise.name //change to exercise name and date
   
   div3.append(h4)
   div2.append(div3)
@@ -76,29 +83,8 @@ function renderExercise(lifts_array) {
 
   let bodyTag = document.createElement("tbody")
   // debugger
-  lifts_array.forEach(lift => {
-    // renderLift(lift, bodyTag)
-    // debugger
-    let rowTag = document.createElement("tr")
-
-    let nameTag = document.createElement("td")
-    nameTag.innerText = lift.name
-
-    let setsTag = document.createElement("td")
-    setsTag.innerText = lift.setts.size
-
-    let repsTag = document.createElement("td")
-    let reps_array = []
-    lift.setts.forEach( set => reps_array.push(set.reps))
-    repsTag.innerText = reps_array
-
-    let weightsTag = document.createElement("td")
-    let weights_array = []
-    lift.setts.forEach(set => weights_array.push(set.weight))
-    weightsTag.innerText = weights_array
-
-    rowTag.append(nameTag, setsTag, repsTag, weightsTag)
-    bodyTag.append(rowTag)
+  createdExercise.lifts.forEach(lift => {
+    renderLift(lift, bodyTag)
   })
 
   table.append(thead, bodyTag)
@@ -114,17 +100,19 @@ function renderLift(lift, bodyTag) {
   nameTag.innerText = lift.name
 
   let setsTag = document.createElement("td")
-  setsTag.innerText = lift.setts.size
+  setsTag.innerText = lift.setts.length
 
   let repsTag = document.createElement("td")
   let reps_array = []
   lift.setts.forEach( set => reps_array.push(set.reps))
-  repsTag.innerText = reps_array
+  let reps_string = reps_array.join(', ')
+  repsTag.innerText = reps_string
 
   let weightsTag = document.createElement("td")
   let weights_array = []
   lift.setts.forEach(set => weights_array.push(set.weight))
-  weightsTag.innerText = weights_array
+  let weights_string = weights_array.join(', ')
+  weightsTag.innerText = weights_string
 
   rowTag.append(nameTag, setsTag, repsTag, weightsTag)
   bodyTag.append(rowTag)
@@ -172,6 +160,9 @@ function createWorkout(form) {
           })
         })
       }
+      return newExercise
+    })
+    .then(newExercise =>{
       if (lift2 && sets2 && reps2 && weights2) {
         fetch("http://localhost:3000/api/lifts", {
           method: "POST",
@@ -188,6 +179,9 @@ function createWorkout(form) {
           })
         })
       }
+      return newExercise
+    })
+    .then(newExercise => {
       if (lift3 && sets3 && reps3 && weights3) {
         fetch("http://localhost:3000/api/lifts", {
           method: "POST",
@@ -204,6 +198,9 @@ function createWorkout(form) {
           })
         })
       }
+      return newExercise
+    })
+    .then(newExercise => {
       if (lift4 && sets4 && reps4 && weights4) {
         fetch("http://localhost:3000/api/lifts", {
           method: "POST",
@@ -220,20 +217,17 @@ function createWorkout(form) {
           })
         })
       }
-      // debugger
       return newExercise
     })
     .then( newExercise => {
       // debugger
       fetch(`http://localhost:3000/api/exercises/${newExercise.id}`)
       .then(res => res.json())
-      .then(json => {
-        // debugger
-        renderExercise(json)
+      .then(createdExercise => {
+        renderExercise(createdExercise)
       })
     })
   }
-  
   // debugger
 }
 
@@ -252,6 +246,8 @@ newWorkoutForm.addEventListener("submit", () => {
 
   eventFire(newBtn, "click")
 })
+
+
 
 
 
