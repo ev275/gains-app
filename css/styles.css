@@ -10374,3 +10374,7 @@ body {
 .footer {
   padding: 5rem 0;
 }
+
+div#tableDiv {
+  cursor: pointer;
+}
