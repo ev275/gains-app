@@ -47,16 +47,6 @@
         <section class="new-section text-center" id="new">
             <button class="btn btn-primary text-center" id="newBtn">New Workout</button>
             <div class="container" id="newContainer">
-                <!-- <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <h2 class="text-white mb-4">New Workout</h2>
-                        <p class="text-white-50">
-                            this will be a table with lifts, sets, and weight
-                        </p>
-                          <p>***form with submit btn. on submit, toggle newBtn</p>
-                    </div>
-                </div> -->
-                <!-- <img class="img-fluid" src="assets/img/ipad.png" alt="" /> -->
                 <form id="newWorkoutForm">
                     <div class="form-row">
                         <label>Workout Name</label>
@@ -68,16 +58,6 @@
                             <label>New Lift</label>
                             <input id="1newLiftName" type="text" class="form-control" placeholder="Benchpress">
                         </div>
-                        <!-- <div class="col">
-                            <label for="exampleFormControlSelect1">Existing Lift</label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>Barbell Squat</option>
-                                <option>Leg Press</option>
-                                <option>Backward Lunge</option>
-                                <option>Leg Curl</option>
-                                <option>Leg Extension</option>
-                            </select>
-                        </div> -->
                         <div class="col">
                             <label>Sets</label>
                             <input id="1newLiftSets" type="integer" class="form-control" placeholder="5">
@@ -94,19 +74,15 @@
                     <br>
                     <div class="form-row">
                         <div class="col">
-                            <!-- <label>New Lift</label> -->
                             <input id="2newLiftName" type="text" class="form-control" placeholder="Benchpress">
                         </div>
                         <div class="col">
-                            <!-- <label>Sets</label> -->
                             <input id="2newLiftSets" type="integer" class="form-control" placeholder="5">
                         </div>
                         <div class="col">
-                            <!-- <label>Reps</label> -->
                             <input id="2newLiftReps" type="text" class="form-control" placeholder="8, 6, 6, 4, 2">
                         </div>
                         <div class="col">
-                            <!-- <label>Weights</label> -->
                             <input id="2newLiftWeights" type="text" class="form-control" placeholder="195, 205, 205, 215, 225">
                         </div>
                     </div>
@@ -148,52 +124,7 @@
         <!-- Workouts-->
         <section class="workouts-section bg-light" id="workouts">
             <div class="container" id="workoutsDiv">
-                <!-- Today's Workout Row-->
-                <!-- <div class="row align-items-center no-gutters mb-4 mb-lg-5" id="today">
-                    <div class="col-xl-4 col-lg-5">
-                        <div class="featured-text text-center text-lg-left">
-                            <h4>Conquer Today's Workout</h4>
-                            <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it for any project - even commercial projects! Download it, customize it, and publish your website!</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-8 col-lg-7">
-                        <table class="table table-dark table-bordered">
-                            <thead>
-                              <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Lift</th>
-                                <th scope="col">Sets</th>
-                                <th scope="col">Reps</th>
-                                <th scope="col">Weights</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Barbell Squat</td>
-                                <td>5</td>
-                                <td>8, 6, 6, 4, 2</td>
-                                <td>225, 275, 285, 305, 315</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">2</th>
-                                <td>Leg Press</td>
-                                <td>4</td>
-                                <td>10, 8, 8, 8</td>
-                                <td>360, 380, 380, 400</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">3</th>
-                                <td>Backward Lunge</td>
-                                <td>4</td>
-                                <td>8, 8, 8, 8</td>
-                                <td>185, 185, 185, 185</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                    </div>
-                </div> -->
-                <!-- 2nd Workout Row-->
+                <!-- Workout Row-->
                 <!-- <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
@@ -239,7 +170,103 @@
                     </div>
                 </div> -->
             </div>
+            <button id="modalBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editWorkoutModal" exerciseid="this_exercise_id">
+                Edit Exercise
+            </button>
         </section>
+        <!-- edit workout modal -->
+        <div class="modal fade" id="editWorkoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalLabel">Edit Workout</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editWorkoutForm" exerciseid="">
+                        <div class="form-row">
+                            <label>Workout Name</label>
+                            <input id="newWorkoutName" type="text" class="form-control" placeholder="Exercise Name">
+                        </div>
+                        <br>
+                        <div class="form-row">
+                            <div class="col">
+                                <label>New Lift</label>
+                                <input id="1newLiftName" type="text" class="form-control" placeholder="Lift 1">
+                            </div>
+                            <div class="col">
+                                <label>Sets</label>
+                                <input id="1newLiftSets" type="integer" class="form-control" placeholder="sets">
+                            </div>
+                            <div class="col">
+                                <label>Reps</label>
+                                <input id="1newLiftReps" type="text" class="form-control" placeholder="reps ">
+                            </div>
+                            <div class="col">
+                                <label>Weights</label>
+                                <input id="1newLiftWeights" type="text" class="form-control" placeholder="weights">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                            <div class="col">
+                                <input id="2newLiftName" type="text" class="form-control" placeholder="Lift 2">
+                            </div>
+                            <div class="col">
+                                <input id="2newLiftSets" type="integer" class="form-control" placeholder="sets">
+                            </div>
+                            <div class="col">
+                                <input id="2newLiftReps" type="text" class="form-control" placeholder="reps">
+                            </div>
+                            <div class="col">
+                                <input id="2newLiftWeights" type="text" class="form-control" placeholder="weights">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                            <div class="col">
+                                <input id="3newLiftName" type="text" class="form-control" placeholder="Benchpress">
+                            </div>
+                            <div class="col">
+                                <input id="3newLiftSets" type="integer" class="form-control" placeholder="5">
+                            </div>
+                            <div class="col">
+                                <input id="3newLiftReps" type="text" class="form-control" placeholder="8, 6, 6, 4, 2">
+                            </div>
+                            <div class="col">
+                                <input id="3newLiftWeights" type="text" class="form-control" placeholder="195, 205, 205, 215, 225">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                            <div class="col">
+                                <input id="4newLiftName" type="text" class="form-control" placeholder="Benchpress">
+                            </div>
+                            <div class="col">
+                                <input id="4newLiftSets" type="integer" class="form-control" placeholder="5">
+                            </div>
+                            <div class="col">
+                                <input id="4newLiftReps" type="text" class="form-control" placeholder="8, 6, 6, 4, 2">
+                            </div>
+                            <div class="col">
+                                <input id="4newLiftWeights" type="text" class="form-control" placeholder="195, 205, 205, 215, 225">
+                            </div>
+                        </div>
+                        <br>
+                        <button id="updateExerciseBtn" type="submit" class="btn btn-primary">Update Workout</button>
+                        <button id="closeModalBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="deleteExerciseBtn" type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div> -->
+              </div>
+            </div>
+          </div>
         <!-- Info-->
         <section class="info-section" id="info">
             <div class="container">
