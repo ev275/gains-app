@@ -15,6 +15,10 @@ renderExercises()
 toggleElement(newContainer)
 
 //Helper Functions
+function qs(selector) {
+  return document.querySelector(selector)
+}
+
 function toggleElement(element) {
   let x = element;
   if (x.style.display === "none") {
@@ -44,6 +48,70 @@ newBtn.addEventListener("click", () => {
   toggleElement(newBtn)
   toggleElement(newContainer)
 })
+
+//Sign up
+const signUpForm = qs("form#signUpForm")
+signUpForm.addEventListener("submit", () => {
+
+  event.preventDefault()
+  
+  let username = event.target[0].value
+  let password = event.target[1].value
+  let name = event.target[2].value
+  let sex = event.target[3].value
+  let age = event.target[4].value
+  let weight = event.target[5].value
+  let height = +(event.target[6].value * 12) + +event.target[7].value
+  // debugger
+
+  fetch("http://localhost:3000/api/users", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      username,
+      password,
+      name,
+      sex,
+      age,
+      weight,
+      height
+    })
+  })
+  .then(res => res.json())
+  .then(userInfo => {
+    if(userInfo.token) {
+      localStorage.token = userInfo.token
+      console.log(localStorage)
+    }
+  })
+})
+
+//Log in
+const logInForm = qs("form#logInForm")
+logInForm.addEventListener("submit", () => {
+  event.preventDefault()
+
+  fetch("http://localhost:3000/api/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      username: event.target[0].value,
+      password: event.target[1].value,
+    })
+  })
+  .then(res => res.json())
+  .then(userInfo => {
+    if(userInfo.token) {
+      localStorage.token = userInfo.token
+      console.log(localStorage)
+    }
+  })
+})
+
 
 //Create Exercises
 newWorkoutForm.addEventListener("submit", () => {
@@ -157,16 +225,53 @@ function createWorkout(form) {
       return newExercise
     })
     .then( newExercise => {
-      debugger
-      fetch(`http://localhost:3000/api/exercises/${newExercise.id}`)
+      // debugger
+      fetch(`http://localhost:3000/api/exercises`)
       .then(res => res.json())
       .then(createdExercise => {
-        renderExercise(createdExercise)
+        console.log(createdExercise)
+        renderExercise(createdExercise[createdExercise.length - 1])
       })
     })
   }
   // debugger
 }
+
+// function async createAsyncWorkout(form) {
+//   let workoutName = form[0].value
+//   let [lift1, sets1, reps1, weights1] = [form[1].value, form[2].value, form[3].value, form[4].value]
+//   let [lift2, sets2, reps2, weights2] = [form[5].value, form[6].value, form[7].value, form[8].value]
+//   let [lift3, sets3, reps3, weights3] = [form[9].value, form[10].value, form[11].value, form[12].value]
+//   let [lift4, sets4, reps4, weights4] = [form[13].value, form[14].value, form[15].value, form[16].value]
+//   if (workoutName) {
+//     let res = await fetch("http://localhost:3000/api/exercises", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Accept: "application/json"
+//       },
+//       body: JSON.stringify({
+//         name: workoutName,
+//         user_id: 1
+//       })
+//     })
+//    newEx = await res.json()
+//    await if (lift1 && sets1 && reps1 && weights1) {
+//    let res = await fetch("http://localhost:3000/api/lifts", {
+//           method: "POST",
+//           headers: {
+//             "Content-Type": "application/json",
+//             Accept: "application/json"
+//           },
+//           body: JSON.stringify({
+//             name: lift1,
+//             exercise_id: newExercise.id,
+//             sets: sets1,
+//             reps: reps1,
+//             weights: weights1
+//           })
+//         })
+//       }
 
 //Read Exercises
 function renderExercises() {
@@ -198,7 +303,7 @@ function renderExercise(createdExercise) {
   let tableDiv = document.createElement("div")
   tableDiv.className = "col-lg-6"
   tableDiv.id = "tableDiv"
-  
+
   tableDiv.addEventListener("click", () => {
     modalBtn.exerciseid = createdExercise.id
     updateWorkoutForm.exerciseid = createdExercise.id
