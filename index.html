@@ -213,7 +213,7 @@
                     </div>
                 </div> -->
             </div>
-            <button id="modalBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editWorkoutModal" exerciseid="this_exercise_id">
+            <button id="modalBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editWorkoutModal" data-exerciseid="this_exercise_id">
                 Edit Exercise
             </button>
         </section>
@@ -228,7 +228,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                    <form id="editWorkoutForm" exerciseid="">
+                    <form id="editWorkoutForm">
                         <div class="form-row">
                             <label>Workout Name</label>
                             <input id="newWorkoutName" type="text" class="form-control" placeholder="Exercise Name">
@@ -300,7 +300,7 @@
                         <br>
                         <button id="updateExerciseBtn" type="submit" class="btn btn-primary">Update Workout</button>
                         <button id="closeModalBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button id="deleteExerciseBtn" type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        <button id="deleteExerciseBtn" type="button" class="btn btn-danger btn-sm">Delete</button>
                     </form>
                 </div>
                 <!-- <div class="modal-footer">

@@ -124,127 +124,18 @@ newWorkoutForm.addEventListener("submit", () => {
   eventFire(newBtn, "click")
 })
 
-function createWorkout(form) {
-  let workoutName = form[0].value
-
-  let [lift1, sets1, reps1, weights1] = [form[1].value, form[2].value, form[3].value, form[4].value]
-
-  let [lift2, sets2, reps2, weights2] = [form[5].value, form[6].value, form[7].value, form[8].value]
-
-  let [lift3, sets3, reps3, weights3] = [form[9].value, form[10].value, form[11].value, form[12].value]
-
-  let [lift4, sets4, reps4, weights4] = [form[13].value, form[14].value, form[15].value, form[16].value]
-  if (workoutName) {
-    fetch("http://localhost:3000/api/exercises", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: JSON.stringify({
-        name: workoutName,
-        user_id: 1
-      })
-    })
-    .then(res => res.json())
-    .then(newExercise => {
-      // debugger
-      if (lift1 && sets1 && reps1 && weights1) {
-        fetch("http://localhost:3000/api/lifts", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          },
-          body: JSON.stringify({
-            name: lift1,
-            exercise_id: newExercise.id,
-            sets: sets1,
-            reps: reps1,
-            weights: weights1
-          })
-        })
-      }
-      return newExercise
-    })
-    .then(newExercise =>{
-      if (lift2 && sets2 && reps2 && weights2) {
-        fetch("http://localhost:3000/api/lifts", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          },
-          body: JSON.stringify({
-            name: lift2,
-            exercise_id: newExercise.id,
-            sets: sets2,
-            reps: reps2,
-            weights: weights2
-          })
-        })
-      }
-      return newExercise
-    })
-    .then(newExercise => {
-      if (lift3 && sets3 && reps3 && weights3) {
-        fetch("http://localhost:3000/api/lifts", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          },
-          body: JSON.stringify({
-            name: lift3,
-            exercise_id: newExercise.id,
-            sets: sets3,
-            reps: reps3,
-            weights: weights3
-          })
-        })
-      }
-      return newExercise
-    })
-    .then(newExercise => {
-      if (lift4 && sets4 && reps4 && weights4) {
-        fetch("http://localhost:3000/api/lifts", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          },
-          body: JSON.stringify({
-            name: lift4,
-            exercise_id: newExercise.id,
-            sets: sets4,
-            reps: reps4,
-            weights: weights4
-          })
-        })
-      }
-      return newExercise
-    })
-    .then( newExercise => {
-      // debugger
-      fetch(`http://localhost:3000/api/exercises`)
-      .then(res => res.json())
-      .then(createdExercise => {
-        console.log(createdExercise)
-        renderExercise(createdExercise[createdExercise.length - 1])
-      })
-    })
-  }
-  // debugger
-}
-
-// function async createAsyncWorkout(form) {
+// function createWorkout(form) {
 //   let workoutName = form[0].value
+
 //   let [lift1, sets1, reps1, weights1] = [form[1].value, form[2].value, form[3].value, form[4].value]
+
 //   let [lift2, sets2, reps2, weights2] = [form[5].value, form[6].value, form[7].value, form[8].value]
+
 //   let [lift3, sets3, reps3, weights3] = [form[9].value, form[10].value, form[11].value, form[12].value]
+
 //   let [lift4, sets4, reps4, weights4] = [form[13].value, form[14].value, form[15].value, form[16].value]
 //   if (workoutName) {
-//     let res = await fetch("http://localhost:3000/api/exercises", {
+//     fetch("http://localhost:3000/api/exercises", {
 //       method: "POST",
 //       headers: {
 //         "Content-Type": "application/json",
@@ -255,9 +146,11 @@ function createWorkout(form) {
 //         user_id: 1
 //       })
 //     })
-//    newEx = await res.json()
-//    await if (lift1 && sets1 && reps1 && weights1) {
-//    let res = await fetch("http://localhost:3000/api/lifts", {
+//     .then(res => res.json())
+//     .then(newExercise => {
+//       // debugger
+//       if (lift1 && sets1 && reps1 && weights1) {
+//         fetch("http://localhost:3000/api/lifts", {
 //           method: "POST",
 //           headers: {
 //             "Content-Type": "application/json",
@@ -272,6 +165,184 @@ function createWorkout(form) {
 //           })
 //         })
 //       }
+//       return newExercise
+//     })
+//     .then(newExercise =>{
+//       if (lift2 && sets2 && reps2 && weights2) {
+//         fetch("http://localhost:3000/api/lifts", {
+//           method: "POST",
+//           headers: {
+//             "Content-Type": "application/json",
+//             Accept: "application/json"
+//           },
+//           body: JSON.stringify({
+//             name: lift2,
+//             exercise_id: newExercise.id,
+//             sets: sets2,
+//             reps: reps2,
+//             weights: weights2
+//           })
+//         })
+//       }
+//       return newExercise
+//     })
+//     .then(newExercise => {
+//       if (lift3 && sets3 && reps3 && weights3) {
+//         fetch("http://localhost:3000/api/lifts", {
+//           method: "POST",
+//           headers: {
+//             "Content-Type": "application/json",
+//             Accept: "application/json"
+//           },
+//           body: JSON.stringify({
+//             name: lift3,
+//             exercise_id: newExercise.id,
+//             sets: sets3,
+//             reps: reps3,
+//             weights: weights3
+//           })
+//         })
+//       }
+//       return newExercise
+//     })
+//     .then(newExercise => {
+//       if (lift4 && sets4 && reps4 && weights4) {
+//         fetch("http://localhost:3000/api/lifts", {
+//           method: "POST",
+//           headers: {
+//             "Content-Type": "application/json",
+//             Accept: "application/json"
+//           },
+//           body: JSON.stringify({
+//             name: lift4,
+//             exercise_id: newExercise.id,
+//             sets: sets4,
+//             reps: reps4,
+//             weights: weights4
+//           })
+//         })
+//       }
+//       return newExercise
+//     })
+//     .then( newExercise => {
+//       // debugger
+//       fetch(`http://localhost:3000/api/exercises`)
+//       .then(res => res.json())
+//       .then(createdExercise => {
+//         console.log(createdExercise)
+//         renderExercise(createdExercise[createdExercise.length - 1])
+//       })
+//     })
+//   }
+//   // debugger
+// }
+
+async function createWorkout(form) {
+
+  let workoutName = form[0].value
+  let [lift1, sets1, reps1, weights1] = [form[1].value, form[2].value, form[3].value, form[4].value]
+  let [lift2, sets2, reps2, weights2] = [form[5].value, form[6].value, form[7].value, form[8].value]
+  let [lift3, sets3, reps3, weights3] = [form[9].value, form[10].value, form[11].value, form[12].value]
+  let [lift4, sets4, reps4, weights4] = [form[13].value, form[14].value, form[15].value, form[16].value]
+
+  if (workoutName) {
+    let workOutResponse = await fetch("http://localhost:3000/api/exercises", {
+          method: "POST",
+          headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+          },
+          body: JSON.stringify({
+          name: workoutName,
+          user_id: 1
+          })
+      })
+
+      let newExercise = await workOutResponse.json()
+
+      if (await lift1 && sets1 && reps1 && weights1) {
+       let lift1Res = await fetch("http://localhost:3000/api/lifts", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+            },
+            body: JSON.stringify({
+            name: lift1,
+            exercise_id: newExercise.id,
+            sets: sets1,
+            reps: reps1,
+            weights: weights1
+            })
+
+        })
+      //  let ex1 = await lift1Res.json()
+      }
+
+      if (await lift2 && sets2 && reps2 && weights2) {
+        let lift2Res = await fetch("http://localhost:3000/api/lifts", {
+              method: "POST",
+              headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json"
+              },
+              body: JSON.stringify({
+              name: lift2,
+              exercise_id: newExercise.id,
+              sets: sets2,
+              reps: reps2,
+              weights: weights2
+              })
+          })
+
+          // let ex2 = await ex2Res.json()
+      }
+
+      if (await lift3 && sets3 && reps3 && weights3) {
+        let lift3Res = await fetch("http://localhost:3000/api/lifts", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+            },
+            body: JSON.stringify({
+            name: lift3,
+            exercise_id: newExercise.id,
+            sets: sets3,
+            reps: reps3,
+            weights: weights3
+            })
+          })
+
+          // let ex3 = await ex3Res.json()
+      }
+
+      if (await lift4 && sets4 && reps4 && weights4) {
+        let lift4Res = await fetch("http://localhost:3000/api/lifts", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+            },
+            body: JSON.stringify({
+            name: lift4,
+            exercise_id: newExercise.id,
+            sets: sets4,
+            reps: reps4,
+            weights: weights4
+            })
+        })
+
+        // let ex4 = await ex4Res.json()
+      }
+
+      let exWithLifts = await fetch(`http://localhost:3000/api/exercises/${newExercise.id}`)
+      let createdExercise = await exWithLifts.json()
+      // debugger
+      renderExercise(createdExercise)
+  }
+}
+
 
 //Read Exercises
 function renderExercises() {
@@ -287,6 +358,7 @@ function renderExercise(createdExercise) {
   // debugger
   let div1 = document.createElement("div")
   div1.className = "row justify-content-center no-gutters mb-5 mb-lg-0"
+  div1.id = createdExercise.id
 
   let div2 = document.createElement("div")
   div2.className = "col-xl-4 col-lg-5"
@@ -305,8 +377,9 @@ function renderExercise(createdExercise) {
   tableDiv.id = "tableDiv"
 
   tableDiv.addEventListener("click", () => {
-    modalBtn.exerciseid = createdExercise.id
-    updateWorkoutForm.exerciseid = createdExercise.id
+    modalBtn.dataset.exerciseid = createdExercise.id
+    // debugger
+    // updateWorkoutForm.exerciseid = createdExercise.id
     modalLabel.innerText = createdExercise.name
     eventFire(modalBtn, "click")
   })
@@ -346,7 +419,7 @@ function renderExercise(createdExercise) {
   table.append(thead, bodyTag)
   tableDiv.append(table)
   div1.append(div2, tableDiv)
-  workoutsContainer.append(div1)
+  workoutsContainer.prepend(div1)
 }
 
 function renderLift(lift, bodyTag) {
@@ -375,18 +448,18 @@ function renderLift(lift, bodyTag) {
 }
 
 //Update exercise
-updateWorkoutForm.addEventListener("submit", () => {
+updateWorkoutForm.addEventListener("submit", async () => {
   event.preventDefault()
   // debugger
-  updateWorkout(event.target)
+  await updateWorkout(event.target)
+  renderExercises()
   updateWorkoutForm.reset()
   eventFire(closeModalBtn, "click")
 })
 
-function updateWorkout(form) {
+async function updateWorkout(form) {
   // debugger
-  let id = updateWorkoutForm.exerciseid
-  // debugger
+  let id = modalBtn.dataset.exerciseid
   // const updateWorkoutForm = document.querySelector("#editWorkoutForm")
   let workoutName = form[0].value
 
@@ -397,8 +470,9 @@ function updateWorkout(form) {
   let [lift3, sets3, reps3, weights3] = [form[9].value, form[10].value, form[11].value, form[12].value]
 
   let [lift4, sets4, reps4, weights4] = [form[13].value, form[14].value, form[15].value, form[16].value]
+
   if (workoutName) {
-    fetch(`http://localhost:3000/api/exercises/${id}`, {
+    let exRes = await fetch(`http://localhost:3000/api/exercises/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -409,107 +483,103 @@ function updateWorkout(form) {
         user_id: 1
       })
     })
-    .then(res => res.json())
-    .then(updatedExercise => {
-      // debugger
-      if (lift1 && sets1 && reps1 && weights1) {
-        fetch(`http://localhost:3000/api/lifts/${updatedExercise.lifts[0].id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          },
-          body: JSON.stringify({
-            name: lift1,
-            exercise_id: updatedExercise.id,
-            sets: sets1,
-            reps: reps1,
-            weights: weights1
-          })
+    
+    let updatedExercise = await exRes.json()
+    // console.log(updatedExercise)
+
+    if (await lift1 && sets1 && reps1 && weights1) {
+      let lift1Res = await fetch(`http://localhost:3000/api/lifts/${updatedExercise.lifts[0].id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          name: lift1,
+          exercise_id: updatedExercise.id, //id isnt showing up
+          sets: sets1,
+          reps: reps1,
+          weights: weights1
         })
-      }
-      return updatedExercise
-    })
-    .then(updatedExercise =>{
-      if (lift2 && sets2 && reps2 && weights2) {
-        fetch(`http://localhost:3000/api/lifts/${updatedExercise.lifts[1].id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          },
-          body: JSON.stringify({
-            name: lift2,
-            exercise_id: updatedExercise.id,
-            sets: sets2,
-            reps: reps2,
-            weights: weights2
-          })
-        })
-      }
-      return updatedExercise
-    })
-    .then(updatedExercise => {
-      if (lift3 && sets3 && reps3 && weights3) {
-        fetch(`http://localhost:3000/api/lifts/${updatedExercise.lifts[2].id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          },
-          body: JSON.stringify({
-            name: lift3,
-            exercise_id: updatedExercise.id,
-            sets: sets3,
-            reps: reps3,
-            weights: weights3
-          })
-        })
-      }
-      return updatedExercise
-    })
-    .then(updatedExercise => {
-      if (lift4 && sets4 && reps4 && weights4) {
-        fetch(`http://localhost:3000/api/lifts/${updatedExercise.lifts[1].id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          },
-          body: JSON.stringify({
-            name: lift4,
-            exercise_id: updatedExercise.id,
-            sets: sets4,
-            reps: reps4,
-            weights: weights4
-          })
-        })
-      }
-      return updatedExercise
-    })
-    .then( updatedExercise => {
-      // debugger
-      fetch(`http://localhost:3000/api/exercises/${updatedExercise.id}`)
-      .then(res => res.json())
-      .then(updatedExercise => {
-        renderExercises()
       })
-    })
+    }
+    
+    if (await lift2 && sets2 && reps2 && weights2) {
+      let lift2Res = await fetch(`http://localhost:3000/api/lifts/${updatedExercise.lifts[1].id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          name: lift2,
+          exercise_id: updatedExercise.id,
+          sets: sets2,
+          reps: reps2,
+          weights: weights2
+        })
+      })
+    }
+
+    if (await lift3 && sets3 && reps3 && weights3) {
+      let lift3res = await fetch(`http://localhost:3000/api/lifts/${updatedExercise.lifts[2].id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          name: lift3,
+          exercise_id: updatedExercise.id,
+          sets: sets3,
+          reps: reps3,
+          weights: weights3
+        })
+      })
+    }
+
+    if (await lift4 && sets4 && reps4 && weights4) {
+      let lift4Res = await fetch(`http://localhost:3000/api/lifts/${updatedExercise.lifts[1].id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          name: lift4,
+          exercise_id: updatedExercise.id,
+          sets: sets4,
+          reps: reps4,
+          weights: weights4
+        })
+      })
+    }
+
+    // renderExercises()
+
+    // let finalExRes = await fetch(`http://localhost:3000/api/exercises/${updatedExercise.id}`)
+
+    // let finalEx = await finalEx.json()
+
+    // renderExercise(finalEx)    
   }
 }
 
 //Destroy Exercise
-deleteExerciseBtn.addEventListener("click", () => {
-  let id = updateWorkoutForm.exerciseid
-
-  fetch(`http://localhost:3000/api/exercises/${id}`, {
+deleteExerciseBtn.addEventListener("click", async () => {
+  let id = modalBtn.dataset.exerciseid
+  // debugger
+  await fetch(`http://localhost:3000/api/exercises/${id}`, {
     method: "DELETE"
   })
-  .then(res => res.json())
-  .then(json => {
-    renderExercises()
-    eventFire(closeModalBtn, "click")
-  })
+
+  document.getElementById(`${id}`).remove()
+
+  // exerciseDiv.remove()
+
+  // renderExercises()
+
+  eventFire(closeModalBtn, "click")
 })
 
 
