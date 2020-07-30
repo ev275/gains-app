@@ -6,17 +6,34 @@ const workoutsContainer = document.querySelector("#workoutsDiv")
 
 const titleA = qs("#titleA")
 
+const workoutsA = qs("#workoutsA")
+
 const modalBtn = document.querySelector("#modalBtn")
 const modalLabel = document.querySelector("#modalLabel")
 const updateWorkoutForm = document.querySelector("#editWorkoutForm")
 const closeModalBtn = document.querySelector("#closeModalBtn")
 const deleteExerciseBtn = document.querySelector("#deleteExerciseBtn")
 
+const logInBtn1 = qs("button#logInBtn1")
+const logInBtn2 = qs("button#logInBtn2")
+const closeLogInModalBtn = qs("#closeLogin")
+
+const signUpBtn1 = qs("button#signUpBtn1")
+const signUpBtn2 = qs("button#signUpBtn2")
+const closeSignUpModalBtn = qs("#closeSignup")
+
 const logOutBtn = qs("#logOutBtn")
 
-toggleElement(modalBtn)
+const navNW = qs("#navNW")
+const navW = qs("#navW")
+const navLO = qs("#navLO")
+
+//first functions
+initialDomManipulation()
 renderExercises()
+toggleElement(modalBtn)
 toggleElement(newContainer)
+
 
 //Helper Functions
 function qs(selector) {
@@ -45,13 +62,34 @@ function eventFire(el, etype){
 function fetchUser(id) {
   return fetch(`http://localhost:3000/api/users/${id}`)
   .then( res => res.json())
-  .then(console.log)
+  // .then(console.log)
 }
 
 newBtn.addEventListener("click", () => {
   toggleElement(newBtn)
   toggleElement(newContainer)
 })
+
+function initialDomManipulation() {
+  if (localStorage.token) {
+    logInBtn1.style.display = "none"
+    signUpBtn1.style.display = "none"
+    workoutsA.style.display = ""
+    newBtn.style.display = ""
+    navNW.style.display = ""
+    navW.style.display = ""
+    navLO.style.display = ""
+  } else {
+    logInBtn1.style.display = ""
+    signUpBtn1.style.display = ""
+    workoutsA.style.display = "none"
+    newBtn.style.display = "none"
+    navNW.style.display = "none"
+    navW.style.display = "none"
+    navLO.style.display = "none"
+  }
+  
+}
 
 //Sign up
 const signUpForm = qs("form#signUpForm")
@@ -87,15 +125,22 @@ signUpForm.addEventListener("submit", () => {
   .then(userInfo => {
     if(userInfo.token) {
       localStorage.token = userInfo.token
-      // console.log(localStorage)
+
+      // titleA.dataset.currentuser = userInfo.name
+      // titleA.innerText = `Gains - ${userInfo.name}`
+      initialDomManipulation()
+      renderExercises()
+
+      eventFire(closeSignUpModalBtn, "click")
     }
   })
 })
 
-//Log in
-const logInForm = qs("form#logInForm")
-logInForm.addEventListener("submit", () => {
-  event.preventDefault()
+
+logInBtn2.addEventListener("click", () => {
+  // debugger
+  let username = qs("input#logInUsername").value
+  let password = qs("input#logInPassword").value
 
   fetch("http://localhost:3000/api/login", {
     method: "POST",
@@ -103,8 +148,8 @@ logInForm.addEventListener("submit", () => {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      username: event.target[0].value,
-      password: event.target[1].value,
+      username,
+      password
     })
   })
   .then(res => res.json())
@@ -112,10 +157,13 @@ logInForm.addEventListener("submit", () => {
     if(userInfo.token) {
       localStorage.token = userInfo.token
 
-      titleA.innerText = `Gains - ${userInfo.name}`
+      // titleA.dataset.currentuser = userInfo.name
+      // titleA.innerText = `Gains - ${userInfo.name}`
+      initialDomManipulation()
       renderExercises()
 
-      logInForm.reset()
+      eventFire(closeLogInModalBtn, "click")
+      // logInForm.reset()
     }
   })
 })
@@ -124,6 +172,7 @@ logInForm.addEventListener("submit", () => {
 logOutBtn.addEventListener("click", () => {
   localStorage.clear()
 
+  initialDomManipulation()
   renderExercises()
 })
 
@@ -139,119 +188,6 @@ newWorkoutForm.addEventListener("submit", () => {
   eventFire(newBtn, "click")
 })
 
-// function createWorkout(form) {
-//   let workoutName = form[0].value
-
-//   let [lift1, sets1, reps1, weights1] = [form[1].value, form[2].value, form[3].value, form[4].value]
-
-//   let [lift2, sets2, reps2, weights2] = [form[5].value, form[6].value, form[7].value, form[8].value]
-
-//   let [lift3, sets3, reps3, weights3] = [form[9].value, form[10].value, form[11].value, form[12].value]
-
-//   let [lift4, sets4, reps4, weights4] = [form[13].value, form[14].value, form[15].value, form[16].value]
-//   if (workoutName) {
-//     fetch("http://localhost:3000/api/exercises", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Accept: "application/json"
-//       },
-//       body: JSON.stringify({
-//         name: workoutName,
-//         user_id: 1
-//       })
-//     })
-//     .then(res => res.json())
-//     .then(newExercise => {
-//       // debugger
-//       if (lift1 && sets1 && reps1 && weights1) {
-//         fetch("http://localhost:3000/api/lifts", {
-//           method: "POST",
-//           headers: {
-//             "Content-Type": "application/json",
-//             Accept: "application/json"
-//           },
-//           body: JSON.stringify({
-//             name: lift1,
-//             exercise_id: newExercise.id,
-//             sets: sets1,
-//             reps: reps1,
-//             weights: weights1
-//           })
-//         })
-//       }
-//       return newExercise
-//     })
-//     .then(newExercise =>{
-//       if (lift2 && sets2 && reps2 && weights2) {
-//         fetch("http://localhost:3000/api/lifts", {
-//           method: "POST",
-//           headers: {
-//             "Content-Type": "application/json",
-//             Accept: "application/json"
-//           },
-//           body: JSON.stringify({
-//             name: lift2,
-//             exercise_id: newExercise.id,
-//             sets: sets2,
-//             reps: reps2,
-//             weights: weights2
-//           })
-//         })
-//       }
-//       return newExercise
-//     })
-//     .then(newExercise => {
-//       if (lift3 && sets3 && reps3 && weights3) {
-//         fetch("http://localhost:3000/api/lifts", {
-//           method: "POST",
-//           headers: {
-//             "Content-Type": "application/json",
-//             Accept: "application/json"
-//           },
-//           body: JSON.stringify({
-//             name: lift3,
-//             exercise_id: newExercise.id,
-//             sets: sets3,
-//             reps: reps3,
-//             weights: weights3
-//           })
-//         })
-//       }
-//       return newExercise
-//     })
-//     .then(newExercise => {
-//       if (lift4 && sets4 && reps4 && weights4) {
-//         fetch("http://localhost:3000/api/lifts", {
-//           method: "POST",
-//           headers: {
-//             "Content-Type": "application/json",
-//             Accept: "application/json"
-//           },
-//           body: JSON.stringify({
-//             name: lift4,
-//             exercise_id: newExercise.id,
-//             sets: sets4,
-//             reps: reps4,
-//             weights: weights4
-//           })
-//         })
-//       }
-//       return newExercise
-//     })
-//     .then( newExercise => {
-//       // debugger
-//       fetch(`http://localhost:3000/api/exercises`)
-//       .then(res => res.json())
-//       .then(createdExercise => {
-//         console.log(createdExercise)
-//         renderExercise(createdExercise[createdExercise.length - 1])
-//       })
-//     })
-//   }
-//   // debugger
-// }
-
 async function createWorkout(form) {
 
   let workoutName = form[0].value
@@ -264,12 +200,13 @@ async function createWorkout(form) {
     let workOutResponse = await fetch("http://localhost:3000/api/exercises", {
           method: "POST",
           headers: {
+          Authorization: `Bearer ${localStorage.token}`,
           "Content-Type": "application/json",
           Accept: "application/json"
           },
           body: JSON.stringify({
           name: workoutName,
-          user_id: 1
+          // user_id: 1
           })
       })
 
@@ -279,6 +216,7 @@ async function createWorkout(form) {
        let lift1Res = await fetch("http://localhost:3000/api/lifts", {
             method: "POST",
             headers: {
+            Authorization: `Bearer ${localStorage.token}`,
             "Content-Type": "application/json",
             Accept: "application/json"
             },
@@ -298,6 +236,7 @@ async function createWorkout(form) {
         let lift2Res = await fetch("http://localhost:3000/api/lifts", {
               method: "POST",
               headers: {
+              Authorization: `Bearer ${localStorage.token}`,
               "Content-Type": "application/json",
               Accept: "application/json"
               },
@@ -317,6 +256,7 @@ async function createWorkout(form) {
         let lift3Res = await fetch("http://localhost:3000/api/lifts", {
             method: "POST",
             headers: {
+            Authorization: `Bearer ${localStorage.token}`,
             "Content-Type": "application/json",
             Accept: "application/json"
             },
@@ -336,6 +276,7 @@ async function createWorkout(form) {
         let lift4Res = await fetch("http://localhost:3000/api/lifts", {
             method: "POST",
             headers: {
+            Authorization: `Bearer ${localStorage.token}`,
             "Content-Type": "application/json",
             Accept: "application/json"
             },
@@ -351,13 +292,17 @@ async function createWorkout(form) {
         // let ex4 = await ex4Res.json()
       }
 
-      let exWithLifts = await fetch(`http://localhost:3000/api/exercises/${newExercise.id}`)
+      let exWithLifts = await fetch(`http://localhost:3000/api/exercises/${newExercise.id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+        }
+      })
       let createdExercise = await exWithLifts.json()
       // debugger
       renderExercise(createdExercise)
   }
 }
-
 
 //Read Exercises
 function renderExercises() {
@@ -468,11 +413,6 @@ function renderLift(lift, bodyTag) {
   bodyTag.append(rowTag)
 }
 
-//Read User
-function renderUser() {
-  
-}
-
 //Update exercise
 updateWorkoutForm.addEventListener("submit", async () => {
   event.preventDefault()
@@ -501,12 +441,12 @@ async function updateWorkout(form) {
     let exRes = await fetch(`http://localhost:3000/api/exercises/${id}`, {
       method: "PATCH",
       headers: {
+        Authorization: `Bearer ${localStorage.token}`,
         "Content-Type": "application/json",
         Accept: "application/json"
       },
       body: JSON.stringify({
-        name: workoutName,
-        user_id: 1
+        name: workoutName
       })
     })
     
@@ -517,6 +457,7 @@ async function updateWorkout(form) {
       let lift1Res = await fetch(`http://localhost:3000/api/lifts/${updatedExercise.lifts[0].id}`, {
         method: "PATCH",
         headers: {
+          Authorization: `Bearer ${localStorage.token}`,
           "Content-Type": "application/json",
           Accept: "application/json"
         },
@@ -534,6 +475,7 @@ async function updateWorkout(form) {
       let lift2Res = await fetch(`http://localhost:3000/api/lifts/${updatedExercise.lifts[1].id}`, {
         method: "PATCH",
         headers: {
+          Authorization: `Bearer ${localStorage.token}`,
           "Content-Type": "application/json",
           Accept: "application/json"
         },
@@ -551,6 +493,7 @@ async function updateWorkout(form) {
       let lift3res = await fetch(`http://localhost:3000/api/lifts/${updatedExercise.lifts[2].id}`, {
         method: "PATCH",
         headers: {
+          Authorization: `Bearer ${localStorage.token}`,
           "Content-Type": "application/json",
           Accept: "application/json"
         },
@@ -568,6 +511,7 @@ async function updateWorkout(form) {
       let lift4Res = await fetch(`http://localhost:3000/api/lifts/${updatedExercise.lifts[1].id}`, {
         method: "PATCH",
         headers: {
+          Authorization: `Bearer ${localStorage.token}`,
           "Content-Type": "application/json",
           Accept: "application/json"
         },
@@ -579,15 +523,7 @@ async function updateWorkout(form) {
           weights: weights4
         })
       })
-    }
-
-    // renderExercises()
-
-    // let finalExRes = await fetch(`http://localhost:3000/api/exercises/${updatedExercise.id}`)
-
-    // let finalEx = await finalEx.json()
-
-    // renderExercise(finalEx)    
+    }  
   }
 }
 
@@ -596,7 +532,10 @@ deleteExerciseBtn.addEventListener("click", async () => {
   let id = modalBtn.dataset.exerciseid
   // debugger
   await fetch(`http://localhost:3000/api/exercises/${id}`, {
-    method: "DELETE"
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${localStorage.token}`,
+    }
   })
 
   document.getElementById(`${id}`).remove()
@@ -607,9 +546,6 @@ deleteExerciseBtn.addEventListener("click", async () => {
 
   eventFire(closeModalBtn, "click")
 })
-
-
-
 
 
 

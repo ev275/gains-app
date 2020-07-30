@@ -10378,3 +10378,11 @@ body {
 div#tableDiv {
   cursor: pointer;
 }
+
+div#modalLoginForm {
+  color: black
+}
+
+div#modalSignupForm {
+  color: black
+}
