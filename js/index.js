@@ -60,7 +60,7 @@ function eventFire(el, etype){
 }
 
 function fetchUser(id) {
-  return fetch(`http://localhost:3000/api/users/${id}`)
+  return fetch(`https://the-gains-app.herokuapp.com/api/users/${id}`)
   .then( res => res.json())
   // .then(console.log)
 }
@@ -106,7 +106,7 @@ signUpForm.addEventListener("submit", () => {
   let height = +(event.target[6].value * 12) + +event.target[7].value
   // debugger
 
-  fetch("http://localhost:3000/api/users", {
+  fetch("https://the-gains-app.herokuapp.com/api/users", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -142,7 +142,7 @@ logInBtn2.addEventListener("click", () => {
   let username = qs("input#logInUsername").value
   let password = qs("input#logInPassword").value
 
-  fetch("http://localhost:3000/api/login", {
+  fetch("https://the-gains-app.herokuapp.com/api/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -197,7 +197,7 @@ async function createWorkout(form) {
   let [lift4, sets4, reps4, weights4] = [form[13].value, form[14].value, form[15].value, form[16].value]
 
   if (workoutName) {
-    let workOutResponse = await fetch("http://localhost:3000/api/exercises", {
+    let workOutResponse = await fetch("https://the-gains-app.herokuapp.com/api/exercises", {
           method: "POST",
           headers: {
           Authorization: `Bearer ${localStorage.token}`,
@@ -206,14 +206,13 @@ async function createWorkout(form) {
           },
           body: JSON.stringify({
           name: workoutName,
-          // user_id: 1
           })
       })
 
       let newExercise = await workOutResponse.json()
 
       if (await lift1 && sets1 && reps1 && weights1) {
-       let lift1Res = await fetch("http://localhost:3000/api/lifts", {
+       let lift1Res = await fetch("https://the-gains-app.herokuapp.com/api/lifts", {
             method: "POST",
             headers: {
             Authorization: `Bearer ${localStorage.token}`,
@@ -233,7 +232,7 @@ async function createWorkout(form) {
       }
 
       if (await lift2 && sets2 && reps2 && weights2) {
-        let lift2Res = await fetch("http://localhost:3000/api/lifts", {
+        let lift2Res = await fetch("https://the-gains-app.herokuapp.com/api/lifts", {
               method: "POST",
               headers: {
               Authorization: `Bearer ${localStorage.token}`,
@@ -253,7 +252,7 @@ async function createWorkout(form) {
       }
 
       if (await lift3 && sets3 && reps3 && weights3) {
-        let lift3Res = await fetch("http://localhost:3000/api/lifts", {
+        let lift3Res = await fetch("https://the-gains-app.herokuapp.com/api/lifts", {
             method: "POST",
             headers: {
             Authorization: `Bearer ${localStorage.token}`,
@@ -273,7 +272,7 @@ async function createWorkout(form) {
       }
 
       if (await lift4 && sets4 && reps4 && weights4) {
-        let lift4Res = await fetch("http://localhost:3000/api/lifts", {
+        let lift4Res = await fetch("https://the-gains-app.herokuapp.com/api/lifts", {
             method: "POST",
             headers: {
             Authorization: `Bearer ${localStorage.token}`,
@@ -292,7 +291,7 @@ async function createWorkout(form) {
         // let ex4 = await ex4Res.json()
       }
 
-      let exWithLifts = await fetch(`http://localhost:3000/api/exercises/${newExercise.id}`, {
+      let exWithLifts = await fetch(`https://the-gains-app.herokuapp.com/api/exercises/${newExercise.id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.token}`,
@@ -307,7 +306,7 @@ async function createWorkout(form) {
 //Read Exercises
 function renderExercises() {
   workoutsContainer.innerHTML=""
-  fetch("http://localhost:3000/api/exercises", {
+  fetch("https://the-gains-app.herokuapp.com/api/exercises", {
     method: "GET",
     headers: {
       Authorization: `Bearer ${localStorage.token}`
@@ -438,7 +437,7 @@ async function updateWorkout(form) {
   let [lift4, sets4, reps4, weights4] = [form[13].value, form[14].value, form[15].value, form[16].value]
 
   if (workoutName) {
-    let exRes = await fetch(`http://localhost:3000/api/exercises/${id}`, {
+    let exRes = await fetch(`https://the-gains-app.herokuapp.com/api/exercises/${id}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${localStorage.token}`,
@@ -454,7 +453,7 @@ async function updateWorkout(form) {
     // console.log(updatedExercise)
 
     if (await lift1 && sets1 && reps1 && weights1) {
-      let lift1Res = await fetch(`http://localhost:3000/api/lifts/${updatedExercise.lifts[0].id}`, {
+      let lift1Res = await fetch(`https://the-gains-app.herokuapp.com/api/lifts/${updatedExercise.lifts[0].id}`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${localStorage.token}`,
@@ -472,7 +471,7 @@ async function updateWorkout(form) {
     }
     
     if (await lift2 && sets2 && reps2 && weights2) {
-      let lift2Res = await fetch(`http://localhost:3000/api/lifts/${updatedExercise.lifts[1].id}`, {
+      let lift2Res = await fetch(`https://the-gains-app.herokuapp.com/api/lifts/${updatedExercise.lifts[1].id}`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${localStorage.token}`,
@@ -490,7 +489,7 @@ async function updateWorkout(form) {
     }
 
     if (await lift3 && sets3 && reps3 && weights3) {
-      let lift3res = await fetch(`http://localhost:3000/api/lifts/${updatedExercise.lifts[2].id}`, {
+      let lift3res = await fetch(`https://the-gains-app.herokuapp.com/api/lifts/${updatedExercise.lifts[2].id}`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${localStorage.token}`,
@@ -508,7 +507,7 @@ async function updateWorkout(form) {
     }
 
     if (await lift4 && sets4 && reps4 && weights4) {
-      let lift4Res = await fetch(`http://localhost:3000/api/lifts/${updatedExercise.lifts[1].id}`, {
+      let lift4Res = await fetch(`https://the-gains-app.herokuapp.com/api/lifts/${updatedExercise.lifts[1].id}`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${localStorage.token}`,
@@ -531,7 +530,7 @@ async function updateWorkout(form) {
 deleteExerciseBtn.addEventListener("click", async () => {
   let id = modalBtn.dataset.exerciseid
   // debugger
-  await fetch(`http://localhost:3000/api/exercises/${id}`, {
+  await fetch(`https://the-gains-app.herokuapp.com/api/exercises/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${localStorage.token}`,
