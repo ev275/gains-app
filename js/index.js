@@ -4,11 +4,15 @@ const newWorkoutForm = document.querySelector("#newWorkoutForm")
 
 const workoutsContainer = document.querySelector("#workoutsDiv")
 
+const titleA = qs("#titleA")
+
 const modalBtn = document.querySelector("#modalBtn")
 const modalLabel = document.querySelector("#modalLabel")
 const updateWorkoutForm = document.querySelector("#editWorkoutForm")
 const closeModalBtn = document.querySelector("#closeModalBtn")
 const deleteExerciseBtn = document.querySelector("#deleteExerciseBtn")
+
+const logOutBtn = qs("#logOutBtn")
 
 toggleElement(modalBtn)
 renderExercises()
@@ -22,7 +26,7 @@ function qs(selector) {
 function toggleElement(element) {
   let x = element;
   if (x.style.display === "none") {
-    x.style.display = "block";
+    x.style.display = "";
   } else {
     x.style.display = "none";
   }
@@ -83,7 +87,7 @@ signUpForm.addEventListener("submit", () => {
   .then(userInfo => {
     if(userInfo.token) {
       localStorage.token = userInfo.token
-      console.log(localStorage)
+      // console.log(localStorage)
     }
   })
 })
@@ -107,9 +111,20 @@ logInForm.addEventListener("submit", () => {
   .then(userInfo => {
     if(userInfo.token) {
       localStorage.token = userInfo.token
-      console.log(localStorage)
+
+      titleA.innerText = `Gains - ${userInfo.name}`
+      renderExercises()
+
+      logInForm.reset()
     }
   })
+})
+
+//Log out
+logOutBtn.addEventListener("click", () => {
+  localStorage.clear()
+
+  renderExercises()
 })
 
 
@@ -347,9 +362,15 @@ async function createWorkout(form) {
 //Read Exercises
 function renderExercises() {
   workoutsContainer.innerHTML=""
-  fetch("http://localhost:3000/api/exercises")
+  fetch("http://localhost:3000/api/exercises", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.token}`
+    }
+  })
   .then(res => res.json())
   .then(exercises => {
+    console.log(exercises)
     exercises.forEach(exercise => renderExercise(exercise))
   })
 }
@@ -445,6 +466,11 @@ function renderLift(lift, bodyTag) {
 
   rowTag.append(nameTag, setsTag, repsTag, weightsTag)
   bodyTag.append(rowTag)
+}
+
+//Read User
+function renderUser() {
+  
 }
 
 //Update exercise
